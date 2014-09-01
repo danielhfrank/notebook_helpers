@@ -2,16 +2,13 @@
 
 BASEDIR="$(git rev-parse --show-toplevel)"
 
+# Change this for virtualenv as desired
 PYTHON="python"
-# virtualenv
-if [ -f "$BASEDIR/vendor/bin/python" ]; then
-    PYTHON="$BASEDIR/vendor/bin/python"
-fi
 
 for notebook in $(git --no-pager diff --cached --name-only | egrep ".*\.ipynb$"); do
     if ! $PYTHON $BASEDIR/scripts/check_output.py $notebook; then
-        echo "$notebook contains potentially sensitive data that cannot be committed."
-        echo "Please clear the output by running ./scripts/clean_all_notebooks.sh"
+        echo "$notebook contains output data that cannot be committed."
+        echo "Please clear the output by running ./scripts/clean_notebooks.sh [your_notebook.ipynb]"
         exit 1
     fi
 done

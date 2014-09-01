@@ -16,7 +16,7 @@ def check_each_output(nb):
     for ws in nb.worksheets:
         for cell in ws.cells:
             if cell.cell_type == 'code':
-                yield cell.outputs == []  
+                yield cell.outputs == []
 
 if __name__ == '__main__':
     fname = sys.argv[1]
