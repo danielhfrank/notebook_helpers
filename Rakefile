@@ -22,21 +22,11 @@ notebooks.each do |ipynb|
   name = notebook_name(ipynb)
   dir = File.dirname(name)
   sig = notebook_signature(ipynb)
-  
-  # Repopulate output (labeled with signature) to persistent dir
-  file "#{BASE_DIR}/ipynb/#{name}.#{sig}.ipynb" => :deps do |t|
-    mkdir_p File.dirname(t.name)
-    begin
-      sh "python scripts/repopulate_notebook_outputs.py #{name}.ipynb > #{t.name}"
-    rescue => exception
-      puts "Failure running #{name}, skipping"
-    end
-  end
 
-  # Generate html repr tagged with sig also, to its own persistent dir
-  file "#{BASE_DIR}/html/#{name}.#{sig}.html" => "#{BASE_DIR}/ipynb/#{name}.#{sig}.ipynb" do |t|
+  # Generate html repr tagged with sig, to its own persistent dir
+  file "#{BASE_DIR}/#{name}.#{sig}.html" do |t|
     mkdir_p File.dirname(t.name)
-    sh "python -m IPython nbconvert #{t.prerequisites[0]} --stdout > #{t.name}"
+    sh "runipy --skip-exceptions #{ipynb} --html #{t.name}"
   end
 
   # Link from deploy dir to original html file for this signature in persistent dir
