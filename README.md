@@ -1,7 +1,7 @@
 notebook_helpers
 ============
 
-Scripts for working with deployable ipython notebooks.
+Scripts for working with deployable, reproducible ipython notebooks.
 
 ## Overview
 
@@ -12,14 +12,18 @@ II. Deployment: Re-run notebook logic and generate html on display server (using
 
 ## Development Setup
 
-Run `rake setup_pre_commit_hook` on dev machine to enable commit-time output checks.
-These checks will ensure that all notebooks checked in contain only code, not data.
+You'll wish to use this directory as your workspace. That is, when creating a new notebook,
+`ipython notebook` from within this directory, so that notebooks are stored here.
+
+Run `rake setup_pre_commit_hook` in this directory, on your dev machine, to enable commit-time
+output checks. These checks will ensure that all notebooks checked in contain only code, not data.
 
 ## Deployment Setup
 
-As part of deployment process, ensure that `rake build_notebooks` is run on your server.
-This will re-run all notebook logic, and create rendered html files in a `nbviewer` subdir
+To deploy, copy this directory to your server, and then run `rake build_notebooks`, on your server
+as well. This will re-run all notebook logic, and create rendered html files in a `nbviewer` subdir
 of the deployed directory. Generated html files will be cached between runs under `/tmp/nbviewer`.
+You can then serve the `nbviewer` subdirectory statically to display the built notebooks.
 
 ## Additional Rakefile Directions
 
