@@ -34,7 +34,7 @@ notebooks.each do |ipynb|
   # of building everything because base dependency is in this repo (ie newer than /tmp/nbviewer)
   file "nbviewer/#{name}.html" do |t|
     mkdir_p "nbviewer/#{dir}"
-    orig_html_file = "#{BASE_DIR}/html/#{name}.#{sig}.html"
+    orig_html_file = "#{BASE_DIR}/#{name}.#{sig}.html"
     Rake::Task[orig_html_file].invoke unless File.exist?(orig_html_file)
     sh "ln -s #{orig_html_file} #{t.name}"
   end
