@@ -8,6 +8,7 @@ Scripts for working with deployable, reproducible ipython notebooks.
 Serve private IPython notebooks and ensure reproducibility, in two acts.
 
 I. Development: Strip outputs from notebook before committing (using pre-commit hook)
+
 II. Deployment: Re-run notebook logic and generate html on display server (using rake)
 
 ## Development Setup
